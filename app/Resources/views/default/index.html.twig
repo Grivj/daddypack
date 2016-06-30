@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ dump(daddies) }}
+    {{ dump(bdaddies) }}
     <div id="map" style="width:100%;height:500px;"></div>
     <script>
 
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13,
+                zoom: 12,
                 center: {lat: 48.8488576, lng: 2.3354223}
             });
 
@@ -16,8 +16,8 @@
 
 
         var daddies = [
-            {% for daddy in daddies %}
-            ['{{ daddy.username }}', {{ daddy.lat }}, {{ daddy.lng }}]{{ loop.last ? '' : ',' }}
+            {% for daddy in bdaddies %}
+            ['{{ daddy.lastname }} {{ daddy.firstname }}', {{ daddy.lat }}, {{ daddy.lng }}]{{ loop.last ? '' : ',' }}
             {% endfor %}
         ];
         console.log(daddies);
@@ -27,7 +27,8 @@
                 var marker = new google.maps.Marker({
                     position: {lat: daddy[1], lng: daddy[2]},
                     map: map,
-                    title: daddy[0]
+                    title: daddy[0],
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                 });
             }
         }

@@ -5,8 +5,6 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Model\Geocoder;
-use AppBundle\Entity\Daddy;
 
 class DefaultController extends Controller
 {
@@ -18,12 +16,12 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $daddies = $em->getRepository('AppBundle:Daddy')->findAll();
+        $bdaddies = $em->getRepository('AppBundle:BigDaddy')->findAll();
 
-        
+
 
         return $this->render('default/index.html.twig', array(
-            "daddies" => $daddies
+            "bdaddies" => $bdaddies
         ));
     }
 }
