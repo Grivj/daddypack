@@ -1,49 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Package list</h1>
+    <h1>Commandes</h1>
 
     <table>
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Bigdaddy</th>
-                <th>Speeddaddy</th>
-                <th>User</th>
-                <th>Weight</th>
-                <th>Statut</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Name</th>
+            <th>Bigdaddy</th>
+            <th>Speeddaddy</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for package in packages %}
             <tr>
-                <td><a href="{{ path('package_show', { 'id': package.id }) }}">{{ package.id }}</a></td>
                 <td>{{ package.name }}</td>
                 <td>{{ package.bigDaddy }}</td>
                 <td>{{ package.speedDaddy }}</td>
-                <td>{{ package.user }}</td>
-                <td>{{ package.weight }}</td>
-                <td>{{ package.statut }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('package_show', { 'id': package.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('package_edit', { 'id': package.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {% if package.statut == 0 %}
+                        pas encore chez un bigdaddy
+                    {% endif %}
+                    {% if package.statut == 1 %}
+                        chez bigdaddy - prêt à livrer
+                    {% endif %}
+                    {% if package.statut == 2 %}
+                        avec speeddaddy - en cours de livraison
+                    {% endif %}
+                    {% if package.statut == 3 %}
+                        terminé
+                    {% endif %}
                 </td>
+                <td><a href="{{ path('package_show', { 'id': package.id }) }}">show</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('package_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

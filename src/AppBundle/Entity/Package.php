@@ -57,11 +57,41 @@ class Package
     private $weight;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="statut", type="string", length=255)
+     * @ORM\Column(name="statut", type="integer")
      */
     private $statut;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address_recep", type="string", length=255, nullable=true)
+     */
+    private $address_recep;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="time_bdaddy", type="string", length=255, nullable=true)
+     */
+    private $time_bdaddy;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="time_sdaddy", type="string", length=255, nullable=true)
+     */
+    private $time_sdaddy;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="time_recep", type="string", length=255, nullable=true)
+     */
+    private $time_recep;
+
+
 
 
     /**
@@ -217,5 +247,70 @@ class Package
     {
         return $this->statut;
     }
+
+    /**
+     * @return string
+     */
+    public function getAddressRecep()
+    {
+        return $this->address_recep;
+    }
+
+    /**
+     * @param string $address_recep
+     */
+    public function setAddressRecep($address_recep)
+    {
+        $this->address_recep = $address_recep;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimeBdaddy()
+    {
+        return $this->time_bdaddy;
+    }
+
+    /**
+     * @param string $time_bdaddy
+     */
+    public function setTimeBdaddy($time_bdaddy)
+    {
+        $this->time_bdaddy = $time_bdaddy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimeSdaddy()
+    {
+        return $this->time_sdaddy;
+    }
+
+    /**
+     * @param string $time_sdaddy
+     */
+    public function setTimeSdaddy($time_sdaddy)
+    {
+        $this->time_sdaddy = $time_sdaddy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimeRecep()
+    {
+        return $this->time_recep;
+    }
+
+    /**
+     * @param string $time_recep
+     */
+    public function setTimeRecep($time_recep)
+    {
+        $this->time_recep = $time_recep;
+    }
+
 }
 

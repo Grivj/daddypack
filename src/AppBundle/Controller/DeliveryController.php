@@ -6,11 +6,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Delivery controller.
+ *
+ * @Route("/commandes")
+ */
 class DeliveryController extends Controller
 {
 
     /**
-     * @Route("/delivery", name="delivery")
+     * @Route("/", name="commandes")
      */
     public function indexAction(Request $request)
     {

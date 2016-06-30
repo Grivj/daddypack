@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Package;
 use AppBundle\Form\PackageType;
+use AppBundle\Form\Step2Type;
 
 /**
  * Package controller.
@@ -25,7 +26,11 @@ class PackageController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $packages = $em->getRepository('AppBundle:Package')->findByUser($this->getUser()->getID());
+        $packages = $em->getRepository('AppBundle:Package')
+            ->findBy(
+                array('user' => $this->getUser()->getID()),
+                array('statut' => 'ASC')
+            );
 
         return $this->render('package/index.html.twig', array(
             'packages' => $packages,
@@ -54,7 +59,7 @@ class PackageController extends Controller
                 ->setMaxResults(1);
             $bigdaddy = $query->getResult();
 
-            $package->setStatut('En attente de speed daddy');
+            $package->setStatut(1);
             $package->setBigDaddy($bigdaddy[0]->getId());
 
             $bigdaddy[0]->setcurCapacity($bigdaddy[0]->getcurCapacity() - $package->getWeight());
@@ -81,74 +86,16 @@ class PackageController extends Controller
      */
     public function showAction(Package $package)
     {
-        $deleteForm = $this->createDeleteForm($package);
+        $statut = $package->getStatut();
 
-        return $this->render('package/show.html.twig', array(
-            'package' => $package,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing Package entity.
-     *
-     * @Route("/{id}/edit", name="package_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Package $package)
-    {
-        $deleteForm = $this->createDeleteForm($package);
-        $editForm = $this->createForm('AppBundle\Form\PackageType', $package);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($package);
-            $em->flush();
-
-            return $this->redirectToRoute('package_edit', array('id' => $package->getId()));
-        }
-
-        return $this->render('package/edit.html.twig', array(
-            'package' => $package,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Deletes a Package entity.
-     *
-     * @Route("/{id}", name="package_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, Package $package)
-    {
-        $form = $this->createDeleteForm($package);
-        $form->handleRequest($request);
+        $formS2 = $this->createForm('AppBundle\Form\Step2Type', $package);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($package);
-            $em->flush();
+            
         }
-
-        return $this->redirectToRoute('package_index');
-    }
-
-    /**
-     * Creates a form to delete a Package entity.
-     *
-     * @param Package $package The Package entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Package $package)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('package_delete', array('id' => $package->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-            ;
+        return $this->render('package/steps/step' . $statut . '.html.twig', array(
+            'package' => $package,
+            'form' => $formS2->createView()
+        ));
     }
 }

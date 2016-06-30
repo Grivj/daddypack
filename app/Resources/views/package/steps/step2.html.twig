@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <ul>
+        <li>
+            <a href="{{ path('package_index') }}">Back to the list</a>
+        </li>
+    </ul>
+
+    <h1>je souhaite être livré :</h1>
+
+    {{ form(form) }}
+
+
+
+
+    <script>
+        var autocomplete;
+        function initAutocomplete() {
+            autocomplete = new google.maps.places.Autocomplete(
+                    /** @type {!HTMLInputElement} */(document.getElementsByClassName('autocomplete')[0]),
+                    {types: ['geocode']});
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA80t-bsiDq6n5Cd7puziEpaF-ITzS463Y&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+{% endblock %}
