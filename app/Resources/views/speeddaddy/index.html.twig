@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SpeedDaddy list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Conveyance</th>
+                <th>Capacity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for speedDaddy in speedDaddies %}
+            <tr>
+                <td><a href="{{ path('speeddaddy_show', { 'id': speedDaddy.id }) }}">{{ speedDaddy.id }}</a></td>
+                <td>{{ speedDaddy.lastname }}</td>
+                <td>{{ speedDaddy.firstname }}</td>
+                <td>{{ speedDaddy.conveyance }}</td>
+                <td>{{ speedDaddy.capacity }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('speeddaddy_show', { 'id': speedDaddy.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('speeddaddy_edit', { 'id': speedDaddy.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('speeddaddy_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

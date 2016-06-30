@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>BigDaddy</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bigDaddy.id }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ bigDaddy.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ bigDaddy.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ bigDaddy.address }}</td>
+            </tr>
+            <tr>
+                <th>Lat</th>
+                <td>{{ bigDaddy.lat }}</td>
+            </tr>
+            <tr>
+                <th>Lng</th>
+                <td>{{ bigDaddy.lng }}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ bigDaddy.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Curcapacity</th>
+                <td>{{ bigDaddy.curCapacity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bigdaddy_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('bigdaddy_edit', { 'id': bigDaddy.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

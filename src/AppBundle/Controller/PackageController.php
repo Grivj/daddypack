@@ -25,8 +25,7 @@ class PackageController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $packages = $em->getRepository('AppBundle:Package')->findAll();
+        $packages = $em->getRepository('AppBundle:Package')->findByUser($this->getUser()->getID());
 
         return $this->render('package/index.html.twig', array(
             'packages' => $packages,
@@ -59,7 +58,6 @@ class PackageController extends Controller
             $package->setBigDaddy($bigdaddy[0]->getId());
 
             $bigdaddy[0]->setcurCapacity($bigdaddy[0]->getcurCapacity() - $package->getWeight());
-            var_dump($bigdaddy[0]);
             $em->persist($package);
             $em->flush();
 

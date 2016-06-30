@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>BigDaddy list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Address</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Capacity</th>
+                <th>Curcapacity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bigDaddy in bigDaddies %}
+            <tr>
+                <td><a href="{{ path('bigdaddy_show', { 'id': bigDaddy.id }) }}">{{ bigDaddy.id }}</a></td>
+                <td>{{ bigDaddy.lastname }}</td>
+                <td>{{ bigDaddy.firstname }}</td>
+                <td>{{ bigDaddy.address }}</td>
+                <td>{{ bigDaddy.lat }}</td>
+                <td>{{ bigDaddy.lng }}</td>
+                <td>{{ bigDaddy.capacity }}</td>
+                <td>{{ bigDaddy.curCapacity }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('bigdaddy_show', { 'id': bigDaddy.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('bigdaddy_edit', { 'id': bigDaddy.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bigdaddy_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

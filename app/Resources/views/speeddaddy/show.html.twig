@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SpeedDaddy</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ speedDaddy.id }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ speedDaddy.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ speedDaddy.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Conveyance</th>
+                <td>{{ speedDaddy.conveyance }}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ speedDaddy.capacity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('speeddaddy_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('speeddaddy_edit', { 'id': speedDaddy.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
