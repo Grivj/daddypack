@@ -18,10 +18,11 @@ class DefaultController extends Controller
 
         $bdaddies = $em->getRepository('AppBundle:BigDaddy')->findAll();
 
-
+        $packages = $em->getRepository('AppBundle:Package')->findAll();
 
         return $this->render('default/index.html.twig', array(
-            "bdaddies" => $bdaddies
+            "bdaddies" => $bdaddies,
+            "packages" => $packages
         ));
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Package
  *
- * @ORM\Table(name="package")
+ * @ORM\Table(name="packages")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PackageRepository")
  */
 class Package
@@ -38,9 +38,9 @@ class Package
     /**
      * @var int
      *
-     * @ORM\Column(name="speed_dady", type="integer", nullable=true)
+     * @ORM\Column(name="speed_daddy", type="integer", nullable=true)
      */
-    private $speedDady;
+    private $speedDaddy;
 
     /**
      * @var int
@@ -123,27 +123,27 @@ class Package
     }
 
     /**
-     * Set speedDady
+     * Set speeddaddy
      *
-     * @param integer $speedDady
+     * @param integer $speeddaddy
      *
      * @return Package
      */
-    public function setSpeedDady($speedDady)
+    public function setSpeedDaddy($speeddaddy)
     {
-        $this->speedDady = $speedDady;
+        $this->speedDaddy = $speedDaddy;
 
         return $this;
     }
 
     /**
-     * Get speedDady
+     * Get speeddaddy
      *
      * @return int
      */
-    public function getSpeedDady()
+    public function getSpeedDaddy()
     {
-        return $this->speedDady;
+        return $this->speedDaddy;
     }
 
     /**

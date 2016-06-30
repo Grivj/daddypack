@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ dump(bdaddies) }}
+    <div style="width: 50%;float: left">
+        {{ dump(bdaddies) }}
+    </div>
+    <div style="width: 50%;float: left">
+        {{ dump(packages) }}
+    </div>
     <div id="map" style="width:100%;height:500px;"></div>
     <script>
 

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Package list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Bigdaddy</th>
+                <th>Speeddaddy</th>
+                <th>User</th>
+                <th>Weight</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for package in packages %}
+            <tr>
+                <td><a href="{{ path('package_show', { 'id': package.id }) }}">{{ package.id }}</a></td>
+                <td>{{ package.name }}</td>
+                <td>{{ package.bigDaddy }}</td>
+                <td>{{ package.speedDaddy }}</td>
+                <td>{{ package.user }}</td>
+                <td>{{ package.weight }}</td>
+                <td>{{ package.statut }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('package_show', { 'id': package.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('package_edit', { 'id': package.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('package_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

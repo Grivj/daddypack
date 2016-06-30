@@ -63,6 +63,12 @@ class BigDaddy
      */
     private $capacity;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="cur_capacity", type="integer")
+     */
+    private $curCapacity;
 
     /**
      * Get id
@@ -216,6 +222,30 @@ class BigDaddy
     public function getCapacity()
     {
         return $this->capacity;
+    }
+
+    /**
+     * Set cur_capacity
+     *
+     * @param integer $Ccapacity
+     *
+     * @return BigDaddy
+     */
+    public function setcurCapacity($curCapacity)
+    {
+        $this->curCapacity = $curCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get cur_capacity
+     *
+     * @return int
+     */
+    public function getcurCapacity()
+    {
+        return $this->curCapacity;
     }
 }
 
