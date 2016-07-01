@@ -161,7 +161,7 @@ class Package
      */
     public function setSpeedDaddy($speeddaddy)
     {
-        $this->speedDaddy = $speedDaddy;
+        $this->speedDaddy = $speeddaddy;
 
         return $this;
     }

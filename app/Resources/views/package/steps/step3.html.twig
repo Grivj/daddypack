@@ -1,44 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Package</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ package.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ package.name }}</td>
-            </tr>
-            <tr>
-                <th>Bigdaddy</th>
-                <td>{{ package.bigDaddy }}</td>
-            </tr>
-            <tr>
-                <th>Speeddaddy</th>
-                <td>{{ package.speedDaddy }}</td>
-            </tr>
-            <tr>
-                <th>User</th>
-                <td>{{ package.user }}</td>
-            </tr>
-            <tr>
-                <th>Weight</th>
-                <td>{{ package.weight }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ package.statut }}</td>
-            </tr>
-        </tbody>
-    </table>
 
     <ul>
         <li>
             <a href="{{ path('package_index') }}">Back to the list</a>
         </li>
     </ul>
+
+    <h1>Recherche de speed daddy</h1>
+
 {% endblock %}

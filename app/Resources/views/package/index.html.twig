@@ -20,16 +20,19 @@
                 <td>{{ package.bigDaddy }}</td>
                 <td>{{ package.speedDaddy }}</td>
                 <td>
-                    {% if package.statut == 0 %}
-                        pas encore chez un bigdaddy
-                    {% endif %}
                     {% if package.statut == 1 %}
-                        chez bigdaddy - prêt à livrer
+                        En attente de récéption chez un big daddy
                     {% endif %}
                     {% if package.statut == 2 %}
-                        avec speeddaddy - en cours de livraison
+                        chez bigdaddy - prêt à livrer
                     {% endif %}
                     {% if package.statut == 3 %}
+                        en recherche de speed daddy
+                    {% endif %}
+                    {% if package.statut == 4 %}
+                        avec speeddaddy - en cours de livraison
+                    {% endif %}
+                    {% if package.statut == 5 %}
                         terminé
                     {% endif %}
                 </td>

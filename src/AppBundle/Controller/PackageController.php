@@ -82,20 +82,83 @@ class PackageController extends Controller
      * Finds and displays a Package entity.
      *
      * @Route("/{id}", name="package_show")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function showAction(Package $package)
+    public function showAction(Request $request, Package $package)
     {
+
+        $distance = null;
+
+        $em = $this->getDoctrine()->getManager();
+
         $statut = $package->getStatut();
 
-        $formS2 = $this->createForm('AppBundle\Form\Step2Type', $package);
+        if($statut === 1){
+            if ($request->isMethod('POST')) {
+                $package->setStatut(2);
+                $em->persist($package);
+                $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            
+                return $this->redirectToRoute('package_show', array('id' => $package->getId()));
+            }
+        }
+        if($statut === 3){ // search for speed daddies
+            $package->getBigDaddy();
+            $bdaddy = $em->getRepository('AppBundle:BigDaddy')->findById(1);
+
+
+            $em = $this->getDoctrine()->getManager();
+            $query = $em->createQuery('SELECT sd FROM AppBundle\Entity\SpeedDaddy sd WHERE sd.capacity > ?1');
+            $query->setParameter(1, $package->getWeight())
+                ->setMaxResults(1);
+            $speeddaddy = $query->getResult();
+            if(!empty($speeddaddy)){
+                $package->setSpeedDaddy($speeddaddy[0]->getId());
+                $package->setStatut(4);
+
+                $em->persist($package);
+                $em->flush();
+
+                return $this->redirectToRoute('package_show', array('id' => $package->getId()));
+            }
+        }
+        if($statut === 4){
+            $bdaddy = $em->getRepository('AppBundle:BigDaddy')->findById(1);
+            $bdaddy_ad = $bdaddy[0]->getAddress();
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".urlencode($bdaddy_ad)."&destinations=".urlencode($package->getAddressRecep())."&mode=driving&language=fr-FR&key=AIzaSyA80t-bsiDq6n5Cd7puziEpaF-ITzS463Y";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $response_a = json_decode($response, true);
+            $dist = $response_a['rows'][0]['elements'][0]['distance']['text'];
+            $time = $response_a['rows'][0]['elements'][0]['duration']['text'];
+
+            $distance = array(
+                'distance' => $dist,
+                'time' => $time
+            );
+        }
+
+
+        $formS2 = $this->createForm('AppBundle\Form\Step2Type', $package);
+        $formS2->handleRequest($request);
+
+        if ($formS2->isSubmitted() && $formS2->isValid()) {
+            $package->setStatut(3);
+            $em->persist($package);
+            $em->flush();
+
+            return $this->redirectToRoute('package_show', array('id' => $package->getId()));
         }
         return $this->render('package/steps/step' . $statut . '.html.twig', array(
             'package' => $package,
-            'form' => $formS2->createView()
+            'form' => $formS2->createView(),
+            'dist' => $distance
         ));
     }
 }
